@@ -2,8 +2,8 @@ import { db,storage } from "../config/firebase.js";
 import { getDocs, query, where,addDoc } from "@firebase/firestore";
 import {ref,uploadBytes,getDownloadURL,} from "firebase/storage";
 
-import { roomsCollectionRef } from "../config/collectionRef.js";
-import { v4 as uuidv4 } from "uuid";
+import { chatsCollectionRef, roomsCollectionRef } from "../config/collectionRef.js";
+import { v4 as uuidv4, v4 } from "uuid";
 
 class RoomsService {
   async getRoomsByUser(id) {
@@ -43,6 +43,12 @@ class RoomsService {
            owner_id,
            owner_name
          });
+        
+        await addDoc(chatsCollectionRef,{
+        room_id: id,
+        chat_collection_id: v4(),
+        chats:[]
+      });
 
        return { status: "True", id };
      } catch (error) {

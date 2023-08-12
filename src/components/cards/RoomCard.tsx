@@ -8,8 +8,8 @@ import Badges from "./badges"
 
 function RoomCard() {
     return (
-        <div className="w-64 h-64 rounded-md bg-zinc-800 p-4 py-3">
-            <div className='h-24'>
+        <div className="w-64 rounded-md bg-zinc-800 p-4 py-3">
+            <div>
                 <img src="https://images.pexels.com/photos/147411/italy-mountains-dawn-daybreak-147411.jpeg?auto=compress&cs=tinysrgb&w=600"
                     className='rounded-md w-full object-cover h-24' />
                 <p className='mt-3 text-white text-lg '> Room Name</p>

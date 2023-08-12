@@ -8,6 +8,7 @@ import RoomLayout from "./Layouts/RoomLayout";
 // Pages Import
 import HomePage from "./pages/HomePage";
 import Rooms from "./pages/Rooms";
+import RoomChatPage from "./pages/RoomChatPage";
 
 
 function App() {
@@ -23,12 +24,11 @@ function App() {
 
         {/* These will later be wrapped inside a Protected Route */}
         <Route path="rooms" element={<Rooms />} />
-        <Route path="rooms/create" element={<h1>Create a Room Page</h1>} />
 
 
         <Route path="rooms" element={<Rooms />} />
         <Route path="/room/:id" element={<RoomLayout />}>
-          <Route index element={<h1>Hello</h1>} />
+          <Route index element={<RoomChatPage />} />
         </Route>
       </Route>
 

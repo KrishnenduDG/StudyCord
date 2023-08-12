@@ -6,16 +6,14 @@ import { ShieldAlert, Users } from "lucide-react";
 //Local component import
 import Badges from "./Badges";
 
-function RoomCard({id,name,img,tags,members,owner_id,owner_name}) {
+function RoomCard({ id, name, img, tags, members, owner_id, owner_name }) {
   return (
-    <div className="w-64 h-64 rounded-md bg-zinc-800 p-4 py-3">
-      <div className="h-24">
+    <div className="w-64 rounded-md bg-zinc-800 p-4 py-3">
+      <Link to={`/room/${id}`}>
         <img src={img} className="rounded-md w-full object-cover h-24" />
-        <p className="mt-3 text-white text-lg "> {name}</p>
-
-        <Link to={`/room/${id}`}>
-          <button className="bg-green-700 rounded">Go to Room</button>
-        </Link>
+        <div className="flex flex-row justify-between items-center">
+          <p className="mt-3 text-white text-lg "> {name}</p>
+        </div>
 
         <p className="mt-2 text-sm text-neutral-400 flex flex-row gap-2 items-center ">
           <Users size={16} /> Members : {members.length}
@@ -30,7 +28,8 @@ function RoomCard({id,name,img,tags,members,owner_id,owner_name}) {
           <ShieldAlert size={18} />
           Created by {owner_name}
         </p>
-      </div>
+      </Link>
+
     </div>
   );
 }

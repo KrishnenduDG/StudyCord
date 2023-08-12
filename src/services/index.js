@@ -1,5 +1,6 @@
+import ChatsService from "./ChatsService";
 import RoomsService from "./RoomsService";
 
 const RoomsServiceInstance = new RoomsService();
-
-export {RoomsServiceInstance}
+const ChatsServiceInstance = new ChatsService();
+export {RoomsServiceInstance,ChatsServiceInstance}
