@@ -18,7 +18,7 @@ function RoomCard({ id, name, img, tags, members, owner_id, owner_name }) {
         <p className="mt-2 text-sm text-neutral-400 flex flex-row gap-2 items-center ">
           <Users size={16} /> Members : {members.length}
         </p>
-        <div className="flex flex-wrap mt-2 px-3">
+        <div className="flex gap-1 mt-2 px-3 overflow-x-auto">
           {tags.map((tag) => (
             <Badges tag={tag} key={tag} />
           ))}
