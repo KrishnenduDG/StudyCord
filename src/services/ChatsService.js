@@ -4,7 +4,7 @@ import { query, where, getDocs,getDoc,doc,updateDoc } from "firebase/firestore";
 import { useRef } from "react";
 
 class ChatsService {
-  async addChat(chat,room_id, id,name){
+  async addChat(chat,room_id, id,name,avatar){
     const queryRef = query(chatsCollectionRef, where("room_id", "==", room_id));
     const ds = await getDocs(queryRef);
 
@@ -19,7 +19,7 @@ class ChatsService {
 
         try {
           const res = await updateDoc(chatRef, {
-            chats: [...chats_array,{sender_id:id,sender_name:name,msg:chat}],
+            chats: [...chats_array,{sender_id:id,sender_name:name,msg:chat,avatar}],
           });
 
           return { status: true };
