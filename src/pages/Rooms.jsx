@@ -68,7 +68,7 @@ function Rooms() {
 
             <div className="flex flex-wrap justify-center gap-3 p-7">
                 {rooms.length === 0 ? (
-                    <>No Rooms Available!</>
+                    <div className="font-bold mt-32 text-white text-2xl">No Rooms Available!</div>
                 ) : (
                     <>
                         {rooms.map((room) => (
