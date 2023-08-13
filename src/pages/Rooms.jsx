@@ -1,5 +1,5 @@
 import { useEffect, useState,useRef } from "react";
-import { Navigate } from "react-router";
+import { Navigate,useNavigate } from "react-router";
 
 import { RoomsServiceInstance } from "../services";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -11,6 +11,7 @@ import CreateCard from "../components/Rooms/RoomCreate";
 function Rooms() {
   const [rooms, setRooms] = useState([]);
   const { isAuthenticated, user } = useAuth0();
+  const navigate = useNavigate();
 
   const codeRef = useRef();
 
@@ -35,7 +36,7 @@ function Rooms() {
       else
         RoomsServiceInstance.addMemberToRoom(codeRef.current.value, user.sub);
 
-      return <Navigate to={`/room/${codeRef.current.value}`} />
+      return navigate(`/room/${codeRef.current.value}`)
     }else{
       alert("Something went wrong");
     }
