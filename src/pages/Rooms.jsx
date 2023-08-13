@@ -49,7 +49,8 @@ function Rooms() {
             <div className="w-full px-3 py-3 ml-auto flex flex-row justify-between">
                 <form onSubmit={handleJoinRequest} className="flex flex-row justify-center items-center">
                     <input type="text" ref={codeRef}
-                        className="bg-transparent w-96 p-1 px-4 text-neutral-400 rounded-l-full border-[1px] border-neutral-400 focus:outline-white focus:border-zinc-500"
+                        placeholder="Paste Link Here.."
+                        className=" bg-transparent w-96 p-1 px-4 text-neutral-400 rounded-l-full border-[1px] border-neutral-400 focus:outline-white focus:border-zinc-500"
                     />
                     <button type="submit" className="bg-cyan-600 rounded-r-full px-3 flex flex-row justify-center py-[3px] items-center text-lg  text-white"><CornerDownRight size={16} /> Join Room</button>
 

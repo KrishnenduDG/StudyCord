@@ -7,7 +7,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 
 //icons
-import { Send , FilePlus } from "lucide-react"
+import { Send , FilePlus, AlertTriangle } from "lucide-react"
 
 
 const RoomChatPage = () => {
@@ -36,6 +36,10 @@ const RoomChatPage = () => {
               console.log(res);
 
               res["has_profanity"] ? setIllegalChat(true) : null;
+              if( res["has_profanity"]) {
+                console.log("hit");
+                setToDisable(false);
+              };
 
         await ChatsServiceInstance.addChat(
             chatRef.current.value,
@@ -97,17 +101,16 @@ const RoomChatPage = () => {
  
             </div>
 
-            <div className="sticky bottom-0 flex flex-row gap-2">
-                <form onSubmit={handleChatSubmit}>
-                    <input type="file" placeholder={<FilePlus />} className="text-white"/>
+            <div className="sticky bottom-0 relative">
+                <form onSubmit={handleChatSubmit} className=" flex flex-row gap-2">
+                    <button className="text-white"> <FilePlus  size={24}/> </button>
                     <input type="text" ref={chatRef} 
                         className="relative w-full bg-transparent pr-7 pl-3 py-2 rounded-md border-[2px] border-dashed border-neutral-400 outline-dashed focus:border-white text-white
                         outline-transparent"
                     />
-                    <button type="submit" className=" text-white p-3  absolute right-5 " disabled={illegalChat || toDisable}><Send /></button>
+                    <button type="submit" className=" text-white p-3  absolute right-3 " disabled={illegalChat || toDisable}><Send /></button>  
                 </form>
-
-                {illegalChat && <h1>We have detected profanity in your message.. Be Respectful and polite in the chat.. </h1>}
+                {illegalChat && <p  className="absolute -top-5 text-red-500 flex flex-row gap-2"><AlertTriangle/>Your are not allowed to Send Vulgar Text Contents </p>}               
             </div>
         </div>
     );
