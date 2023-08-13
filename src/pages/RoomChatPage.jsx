@@ -37,9 +37,10 @@ const RoomChatPage = () => {
   return (
     <div className="ml-96">
       {messages.map((m, idx) => {
-        console.log(m.msg);
+        // console.log(m);
+        // console.log(user.id,m.sender_id,user.id === m.sender_id);
         return (
-          <div key={idx} className="bg-red-900">
+          <div key={idx} className={user.sub === m.sender_id ? "bg-red-900" : "bg-green-700"}>
             {m.msg}
           </div>
         );
