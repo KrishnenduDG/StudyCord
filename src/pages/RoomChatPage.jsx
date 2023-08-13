@@ -20,7 +20,15 @@ const RoomChatPage = () => {
     const handleChatSubmit = async (e) => {
         e.preventDefault();
 
-        await ChatsServiceInstance.addChat(chatRef.current.value, id, user.sub, user.name, user.picture);
+        
+        await ChatsServiceInstance.addChat(
+          chatRef.current.value,
+          id,
+          user.sub,
+          user.name,
+          user.picture,
+          new Date().toLocaleTimeString()
+        );
         chatRef.current.value=""
     };
 
