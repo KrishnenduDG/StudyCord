@@ -27,8 +27,8 @@ function App() {
 
 
         <Route path="rooms" element={<Rooms />} />
-        <Route path="/room/:id" element={<RoomLayout />}>
-          <Route index element={<div className="mt-3 h-full ml-80 mr-5"><RoomChatPage /></div>} />
+        <Route path="/room/:id" element={<div className="overflow-hidden"><RoomLayout /></div>}>
+          <Route index element={<RoomChatPage />} />
         </Route>
       </Route>
 

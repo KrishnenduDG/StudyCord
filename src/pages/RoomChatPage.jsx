@@ -7,7 +7,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 
 //icons
-import { Send } from "lucide-react"
+import { Send , FilePlus } from "lucide-react"
 
 
 const RoomChatPage = () => {
@@ -20,16 +20,16 @@ const RoomChatPage = () => {
     const handleChatSubmit = async (e) => {
         e.preventDefault();
 
-        
+
         await ChatsServiceInstance.addChat(
-          chatRef.current.value,
-          id,
-          user.sub,
-          user.name,
-          user.picture,
-          new Date().toLocaleTimeString()
+            chatRef.current.value,
+            id,
+            user.sub,
+            user.name,
+            user.picture,
+            new Date().toLocaleTimeString()
         );
-        chatRef.current.value=""
+        chatRef.current.value = ""
     };
 
     useEffect(() => {
@@ -49,38 +49,42 @@ const RoomChatPage = () => {
     }, []);
 
     return (
-        <div className="flex flex-col gap-2">
-            <div className={`min-h-[80vh] overflow-y-auto flex flex-col 
-                ${messages.length === 0 ? "justify-center items-center":"justify-between"}
-            `}>
-                {messages.length === 0 ? (<div className="justify-center items-center text-3xl text-white font-light">
-                    No Chats Yet
-                </div>):
+        <div className="max-h-[86vh] overflow-hidden flex flex-col gap-2 mr-2 ml-80">
+            <div className="min-h-[76vh] overflow-scroll mb-3">
+                <div className={` auto flex flex-col 
+                ${messages.length === 0 ? "justify-center items-center" : "justify-between"}
+                    `}>
+                    {messages.length === 0 ? (<div className="justify-center items-center text-3xl text-white font-light">
+                        No Chats Yet
+                    </div>) :
 
-                (messages.map((m, idx) => {
-                    // console.log(m);
-                    // console.log(user.id,m.sender_id,user.id === m.sender_id);
-                    return (
-                        <div key={idx} className={`${user.sub === m.sender_id ? 
-                        "bg-red-900" : 
-                        "bg-green-700"} mb-2  w-1/2 rounded-lg`}>
-                            <div className="m-2 flex flex-row gap-2 font-semibold text-neutral-200 text-sm">
-                                <img src={m.avatar}  className='w-4 aspect-square rounded-full relative' />
-                                {m.sender_name}
-                                <p className="ml-auto">{m.time}</p>
-                            </div>
-                            <p className="px-3 pb-3 text-neutral-200" >{m.msg}</p>
-                        </div>
-                    );
-                }))
-            }
+                        (messages.map((m, idx) => {
+                            // console.log(m);
+                            // console.log(user.id,m.sender_id,user.id === m.sender_id);
+                            return (
+                                <div key={idx} className={`${user.sub === m.sender_id ?
+                                    "bg-slate-800" :
+                                    "bg-slate-700"} mb-2  w-1/2 rounded-lg`}>
+                                    <div className="m-2 flex flex-row gap-2 font-semibold text-neutral-200 text-sm">
+                                        <img src={m.avatar} className='w-6 aspect-square rounded-full relative' />
+                                        {m.sender_name}
+                                        <p className="ml-auto">{m.time}</p>
+                                    </div>
+                                    <p className="px-3 pb-3 text-neutral-200" >{m.msg}</p>
+                                </div>
+                            );
+                        }))
+                    }
+                </div>
+
             </div>
-            <div>
-                <form onSubmit={handleChatSubmit}>
 
+            <div className="sticky bottom-0 flex flex-row gap-2">
+                <form onSubmit={handleChatSubmit}>
+                    <input type="file" placeholder={<FilePlus />} className="text-white"/>
                     <input type="text" ref={chatRef}
-                        className="relative w-full bg-transparent pr-7 pl-3 py-2 rounded-md border-[2px] border-dashed border-neutral-400 focus:[border-dashed, outline-white, border-zinc-500 ] text-white
-                        "
+                        className="relative w-full bg-transparent pr-7 pl-3 py-2 rounded-md border-[2px] border-dashed border-neutral-400 outline-dashed focus:border-white text-white
+                        outline-transparent"
                     />
                     <button type="submit" className=" text-white p-3  absolute right-5 "><Send /></button>
                 </form>
