@@ -21,6 +21,7 @@ const RoomChatPage = () => {
         e.preventDefault();
 
         await ChatsServiceInstance.addChat(chatRef.current.value, id, user.sub, user.name, user.picture);
+        chatRef.current.value=""
     };
 
     useEffect(() => {
