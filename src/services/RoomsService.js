@@ -7,9 +7,26 @@ import { v4 as uuidv4, v4 } from "uuid";
 
 class RoomsService {
   async getRoomsByUser(id) {
+    console.log(id);
     const queryRef = query(
       roomsCollectionRef,
       where("members", "array-contains", id)
+    );
+    const ds = await getDocs(queryRef);
+
+    let res = [];
+
+    ds.forEach((doc) => {
+      res.push({ id: doc.id, data: doc.data() });
+    });
+
+    return res;
+  }
+
+  async getRoomById(id){
+    const queryRef = query(
+      roomsCollectionRef,
+      where("room_id", "==", id)
     );
     const ds = await getDocs(roomsCollectionRef, queryRef);
 
@@ -19,7 +36,7 @@ class RoomsService {
       res.push({ id: doc.id, data: doc.data() });
     });
 
-    return res;
+    return res[0];
   }
 
   async addRoom(roomObj) {

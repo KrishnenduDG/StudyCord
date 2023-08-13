@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useRef } from "react";
 import { Navigate } from "react-router";
 
 import { RoomsServiceInstance } from "../services";
@@ -12,19 +12,32 @@ function Rooms() {
   const [rooms, setRooms] = useState([]);
   const { isAuthenticated, user } = useAuth0();
 
+  const codeRef = useRef();
+
   useEffect(() => {
     if (!isAuthenticated) return <Navigate to="/" />;
 
     RoomsServiceInstance.getRoomsByUser(user.sub).then((rooms) => {
       setRooms(rooms.map((room) => room.data));
     });
-  }, []);
+  }, [rooms]);
+
+  // const handleJoinRequest = async () => {
+  //   const 
+  // }
 
   return (
     <>
       <div className="w-full px-3 py-3 ml-auto flex flex-row justify-end">
         <CreateCard />
       </div>
+
+      {/* <div> */}
+        {/* <form onSubmit={handleJoinRequest}>
+          <input type="text" ref={codeRef} />
+          <button type="submit">Join Room</button>
+        </form>
+      </div> */}
       <div className="flex flex-wrap justify-center gap-3 p-7">
         {rooms.length === 0 ? (
           <>No Rooms Available!</>
