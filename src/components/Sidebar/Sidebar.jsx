@@ -7,10 +7,10 @@ function Sidebar() {
         <aside className="fixed left-0 w-72 h-screen transition-transform bg-neutral-800 sm:-translate-x-0 -z-10">
             <div>
                 <div className="flex items-center justify-center my-4">
-                    <span className="text-neutral-300 text-lg">Sidebar</span>
+                    {/* <span className="text-neutral-300 text-lg">Sidebar</span> */}
                 </div>
 
-                <SideBarLinks />
+                {/* <SideBarLinks /> */}
 
             </div>
         </aside>

@@ -21,6 +21,7 @@ const RoomChatPage = () => {
 
 
     const handleChatSubmit = async (e) => {
+      setIllegalChat(false);
         e.preventDefault();
         setToDisable(true);
               let res = await axios.get(
@@ -35,22 +36,25 @@ const RoomChatPage = () => {
               res = await res.data;
               console.log(res);
 
-              res["has_profanity"] ? setIllegalChat(true) : null;
               if( res["has_profanity"]) {
+                setIllegalChat(true);
                 console.log("hit");
                 setToDisable(false);
-              };
+              }
+        
+        if(res["has_profanity"] === false){
+                  await ChatsServiceInstance.addChat(
+                    chatRef.current.value,
+                    id,
+                    user.sub,
+                    user.name,
+                    user.picture,
+                    new Date().toLocaleTimeString()
+                  );
+                  chatRef.current.value = "";
+                  setToDisable(false);
+        }
 
-        await ChatsServiceInstance.addChat(
-            chatRef.current.value,
-            id,
-            user.sub,
-            user.name,
-            user.picture,
-            new Date().toLocaleTimeString()
-        );
-        chatRef.current.value = ""
-        setToDisable(false);
 
     };
 
@@ -108,7 +112,7 @@ const RoomChatPage = () => {
                         className="relative w-full bg-transparent pr-7 pl-3 py-2 rounded-md border-[2px] border-dashed border-neutral-400 outline-dashed focus:border-white text-white
                         outline-transparent"
                     />
-                    <button type="submit" className=" text-white p-3  absolute right-3 " disabled={illegalChat || toDisable}><Send /></button>  
+                    <button type="submit" className=" text-white p-3  absolute right-3 " disabled={toDisable}><Send /></button>  
                 </form>
                 {illegalChat && <p  className="absolute -top-5 text-red-500 flex flex-row gap-2"><AlertTriangle/>Your are not allowed to Send Vulgar Text Contents </p>}               
             </div>
