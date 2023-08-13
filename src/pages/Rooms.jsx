@@ -20,11 +20,26 @@ function Rooms() {
     RoomsServiceInstance.getRoomsByUser(user.sub).then((rooms) => {
       setRooms(rooms.map((room) => room.data));
     });
-  }, [rooms]);
+  }, []);
 
-  // const handleJoinRequest = async () => {
-  //   const 
-  // }
+  const handleJoinRequest = async (e) => {
+    e.preventDefault();
+
+    const room = await RoomsServiceInstance.getRoomById(codeRef.current.value);
+
+    console.log(room.room.data.members);
+
+    if(room.status){
+      if (room.room.data.members.indexOf(user.sub) !== -1)
+        alert("You are already in the team!");
+      else
+        RoomsServiceInstance.addMemberToRoom(codeRef.current.value, user.sub);
+
+      return <Navigate to={`/room/${codeRef.current.value}`} />
+    }else{
+      alert("Something went wrong");
+    }
+  }
 
   return (
     <>
@@ -32,12 +47,12 @@ function Rooms() {
         <CreateCard />
       </div>
 
-      {/* <div> */}
-        {/* <form onSubmit={handleJoinRequest}>
+      <div>
+        <form onSubmit={handleJoinRequest}>
           <input type="text" ref={codeRef} />
-          <button type="submit">Join Room</button>
+          <button type="submit" className="bg-green-800">Join Room</button>
         </form>
-      </div> */}
+      </div>
       <div className="flex flex-wrap justify-center gap-3 p-7">
         {rooms.length === 0 ? (
           <>No Rooms Available!</>
