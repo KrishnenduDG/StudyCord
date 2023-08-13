@@ -4,7 +4,7 @@ import { useParams } from "react-router";
 import { chatsCollectionRef } from "../config/collectionRef";
 import { ChatsServiceInstance } from "../services/";
 import { useAuth0 } from "@auth0/auth0-react";
-
+import axios from "axios";
 
 //icons
 import { Send , FilePlus } from "lucide-react"
@@ -14,12 +14,28 @@ const RoomChatPage = () => {
     let { id } = useParams();
     const [messages, setMessages] = useState([]);
     const { user, isAuthenticated } = useAuth0();
-
+    const [illegalChat,setIllegalChat] = useState(false);
+    const [toDisable,setToDisable] = useState(false);
     const chatRef = useRef();
+
+
 
     const handleChatSubmit = async (e) => {
         e.preventDefault();
+        setToDisable(true);
+              let res = await axios.get(
+                `https://api.api-ninjas.com/v1/profanityfilter?text=${chatRef.current.value}`,
+                {
+                  headers: {
+                    "X-Api-Key": "eDiOFN4AjUJ1DUGr5wQtIg==SOgAyUSPTflLn3Kf",
+                  },
+                }
+              );
 
+              res = await res.data;
+              console.log(res);
+
+              res["has_profanity"] ? setIllegalChat(true) : null;
 
         await ChatsServiceInstance.addChat(
             chatRef.current.value,
@@ -30,6 +46,8 @@ const RoomChatPage = () => {
             new Date().toLocaleTimeString()
         );
         chatRef.current.value = ""
+        setToDisable(false);
+
     };
 
     useEffect(() => {
@@ -76,18 +94,20 @@ const RoomChatPage = () => {
                         }))
                     }
                 </div>
-
+ 
             </div>
 
             <div className="sticky bottom-0 flex flex-row gap-2">
                 <form onSubmit={handleChatSubmit}>
                     <input type="file" placeholder={<FilePlus />} className="text-white"/>
-                    <input type="text" ref={chatRef}
+                    <input type="text" ref={chatRef} 
                         className="relative w-full bg-transparent pr-7 pl-3 py-2 rounded-md border-[2px] border-dashed border-neutral-400 outline-dashed focus:border-white text-white
                         outline-transparent"
                     />
-                    <button type="submit" className=" text-white p-3  absolute right-5 "><Send /></button>
+                    <button type="submit" className=" text-white p-3  absolute right-5 " disabled={illegalChat || toDisable}><Send /></button>
                 </form>
+
+                {illegalChat && <h1>We have detected profanity in your message.. Be Respectful and polite in the chat.. </h1>}
             </div>
         </div>
     );
