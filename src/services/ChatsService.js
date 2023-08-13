@@ -19,7 +19,7 @@ class ChatsService {
 
         try {
           const res = await updateDoc(chatRef, {
-            chats: [...chats_array,{owner_id:id,owner_name:name,msg:chat}],
+            chats: [...chats_array,{sender_id:id,sender_name:name,msg:chat}],
           });
 
           return { status: true };
