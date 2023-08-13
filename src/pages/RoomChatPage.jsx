@@ -80,8 +80,12 @@ const RoomChatPage = () => {
                 <div className={` auto flex flex-col 
                 ${messages.length === 0 ? "justify-center items-center" : "justify-between"}
                     `}>
-                    {messages.length === 0 ? (<div className="justify-center items-center text-3xl text-white font-light">
+                    {messages.length === 0 ? (
+                    <div className="flex flex-col justify-center items-center text-3xl text-white font-light">
                         No Chats Yet
+                        <p className="text-lg text-white font-light">for Room id:</p>
+                        <p className="text-lg text-white font-light">{id}</p>
+                        
                     </div>) :
 
                         (messages.map((m, idx) => {
@@ -104,6 +108,7 @@ const RoomChatPage = () => {
                 </div>
  
             </div>
+
 
             <div className="sticky bottom-0 relative">
                 <form onSubmit={handleChatSubmit} className=" flex flex-row gap-2">
