@@ -90,7 +90,8 @@ const RoomsCreate = () => {
                                             <DropdownSelect
                                                 isMulti
                                                 onChange={handleTagChange}
-                                                className="bg-transparent p-3 rounded-md border-[1px] border-neutral-400 focus:outline-white focus:border-zinc-500"
+                                                className="my-react-select-container"
+                                                classNamePrefix="my-react-select"
                                             />
                                         </p>
                                     </div>
