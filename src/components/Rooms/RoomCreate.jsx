@@ -74,6 +74,7 @@ const RoomsCreate = () => {
                                         <p className="my-4 text-slate-500 text-lg flex flex-col gap-3">
                                             <input className="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-transparent dark:text-gray-400 focus:outline-none dark:bg-transparent dark:border-gray-600 dark:placeholder-gray-400"
                                                 accept="image/*"
+                                                onChange={(e)=> setImg(e.target.files[0])}
                                                 type="file" />
 
                                             <input
